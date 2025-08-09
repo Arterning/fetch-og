@@ -24,7 +24,7 @@ export const articleSchema = z.object({
  * @param url URL of the article to fetch
  * @returns Result containing either the parsed article content or an error object
  */
-export async function getArticleWithBrowser(env: Env, url: string) {
+export async function getArticleWithBrowser(env: any, url: string) {
   const response = await tryCatchAsync(
     fetch(`https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCOUNT_ID}/browser-rendering/content`, {
       method: 'POST',
@@ -131,6 +131,7 @@ export async function getArticleWithBrowser(env: Env, url: string) {
       }),
     })
   );
+  console.log("response", response);
   if (response.isErr()) {
     return err({ type: 'FETCH_ERROR', error: response.error });
   }
